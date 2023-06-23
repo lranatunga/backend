@@ -25,3 +25,37 @@ export const handleAddUser = async (req, res) => {
         res.send("Error in add user" + error.message)
     }
 }
+
+export const handleDeleteUser = async (req, res) => {
+    console.log("🚀 ~ handleDeleteUser:", req.params);
+  
+    try {
+      const deleteUser = await User.findByIdAndDelete(req.params.id);
+      console.log("🚀 ~ deleteUser:", deleteUser);
+  
+      res.send("User deleted from the db");
+    } catch (error) {
+      console.log("🚀 ~ error DELETING USER:", error.message);
+  
+      res.send("Error in deleting a user" + error.message);
+    }
+  };
+
+
+  export const handleEditUser = async (req, res) => {
+    console.log("🚀 ~ handleEditUser:", req.body);
+  
+    try {
+      const editedUser = await User.findByIdAndUpdate(req.body._id, req.body, {
+        new: true,
+      });
+      console.log("🚀 ~ editedUser:", editedUser);
+  
+      res.send("User edited");
+    } catch (error) {
+      console.log("🚀 ~ error EDITING USER:", error.message);
+  
+      res.send("Error in deleting a user" + error.message);
+    }
+  };
+  
